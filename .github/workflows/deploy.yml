@@ -1,0 +1,61 @@
+name: Публикация на GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Получить код
+        uses: actions/checkout@v4
+      
+      - name: Установить Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: './digest/package-lock.json' # <-- Указываем путь к lock-файлу
+          
+      - name: Установить зависимости
+        working-directory: ./digest # <-- Говорим экшену работать во вложенной папке
+        run: npm ci
+        
+      - name: Проверить код линтером
+        working-directory: ./digest
+        run: npm run lint -- --deny-warnings
+        
+      - name: Запустить тесты
+        working-directory: ./digest
+        run: CI=true npm test
+        
+      - name: Собрать сайт
+        working-directory: ./digest
+        run: npm run build
+        
+      - name: Копия index.html для прямых ссылок (SPA)
+        working-directory: ./digest
+        run: cp dist/index.html dist/404.html
+        
+      - name: Упаковать папку dist
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./digest/dist # <-- Указываем путь к папке сборки
+          
+      - name: Опубликовать
+        id: deployment
+        uses: actions/deploy-pages@v4

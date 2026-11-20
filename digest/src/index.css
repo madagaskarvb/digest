@@ -1,0 +1,191 @@
+/* --- Базовые сбросы --- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  background: #f5f6f9;
+  color: #1f2430;
+  line-height: 1.5;
+}
+
+/* --- Шапка и макет --- */
+.header {
+  padding: 24px 32px;
+  background: #1f2430;
+  color: #ffffff;
+}
+
+.header h1 {
+  margin: 0 0 8px;
+  font-size: 28px;
+}
+
+.header p {
+  margin: 0;
+  color: #c4cad8;
+}
+
+.main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 32px;
+}
+
+/* --- Карточки новостей --- */
+.digest-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.digest-card {
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #dde1ea;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+  transition: opacity 0.3s, background 0.3s;
+}
+
+.digest-card__title {
+  margin: 0 0 8px;
+  font-size: 20px;
+}
+
+.digest-card__title a {
+  color: #1f2430;
+  text-decoration: none;
+}
+
+.digest-card__title a:hover {
+  color: #2563d0;
+  text-decoration: underline;
+}
+
+.digest-card__meta {
+  margin-bottom: 12px;
+  color: #5b6478;
+  font-size: 14px;
+}
+
+.digest-card__summary {
+  margin: 0 0 16px;
+  color: #3d4557;
+  line-height: 1.6;
+}
+
+.digest-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.digest-tag {
+  padding: 4px 12px;
+  border-radius: 16px;
+  background: #e3ecff;
+  color: #2563d0;
+  font-size: 13px;
+}
+
+/* --- Панель фильтров --- */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.filter-group input[type="text"],
+.filter-group select {
+  padding: 8px 12px;
+  border: 1px solid #c4cad8;
+  border-radius: 6px;
+  font: inherit;
+  background: #ffffff;
+}
+
+.filter-group--checkbox {
+  cursor: pointer;
+}
+
+.stats-counter {
+  margin-bottom: 24px;
+  color: #5b6478;
+  font-size: 15px;
+}
+
+.empty-message {
+  padding: 32px;
+  text-align: center;
+  background: #ffffff;
+  border: 1px dashed #c4cad8;
+  border-radius: 8px;
+  color: #5b6478;
+  font-size: 16px;
+}
+
+/* --- Футер карточки и кнопка прочитанного --- */
+.digest-card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.read-button {
+  padding: 8px 16px;
+  border: 1px solid #c4cad8;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #1f2430;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap; /* Чтобы текст кнопки не переносился */
+}
+
+.read-button:hover {
+  border-color: #2563d0;
+  color: #2563d0;
+}
+
+.read-button--active {
+  background: #f5f6f9;
+  border-color: #dfe3eb;
+  color: #8a93a6;
+  cursor: default;
+}
+
+.read-button--active:hover {
+  border-color: #dfe3eb;
+  color: #8a93a6;
+}
+
+/* --- Стиль прочитанной карточки --- */
+.digest-card--read {
+  opacity: 0.6;
+  background: #fdfdfd;
+}
+
+.digest-card--read .digest-card__title a {
+  color: #5b6478;
+}
+
+.digest-card--read .digest-tag {
+  background: #f0f2f5;
+  color: #8a93a6;
+}
